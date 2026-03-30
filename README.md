@@ -1,4 +1,3 @@
-# Iot-Data-Conversion
 # Daikibo IoT Data Conversion
 
 This project converts two different IoT telemetry formats into a unified schema.
