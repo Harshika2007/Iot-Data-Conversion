@@ -1,14 +1,19 @@
 import json, unittest, datetime
 
-with open("./data-1.json","r") as f:
+# Read input files
+with open("./data-1.json", "r") as f:
     jsonData1 = json.load(f)
-with open("./data-2.json","r") as f:
+
+with open("./data-2.json", "r") as f:
     jsonData2 = json.load(f)
-with open("./data-result.json","r") as f:
+
+with open("./data-result.json", "r") as f:
     jsonExpectedResult = json.load(f)
 
 
+# Convert format 1 → unified format
 def convertFromFormat1(jsonObject):
+
     locationParts = jsonObject["location"].split("/")
 
     return {
@@ -29,11 +34,14 @@ def convertFromFormat1(jsonObject):
     }
 
 
+# Convert format 2 → unified format
 def convertFromFormat2(jsonObject):
+
     dt = datetime.datetime.strptime(
         jsonObject["timestamp"],
         "%Y-%m-%dT%H:%M:%S.%fZ"
     )
+
     timestamp = int(dt.timestamp() * 1000)
 
     return {
@@ -54,13 +62,16 @@ def convertFromFormat2(jsonObject):
     }
 
 
+# Main function
 def main(jsonObject):
+
     if jsonObject.get("device") is None:
         return convertFromFormat1(jsonObject)
     else:
         return convertFromFormat2(jsonObject)
 
 
+# Unit tests
 class TestSolution(unittest.TestCase):
 
     def test_sanity(self):
